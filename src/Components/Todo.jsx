@@ -1,21 +1,27 @@
 import TodoItems from "./TodoItems";
 import tick from "../assets/tick.png";
-import delete_icon from "../assets/delete.png";
-import { useRef, useState } from "react";
+import delete_icon from "../assets/trash.png";
+import { useEffect, useRef, useState } from "react";
 
 const Todo = () => {
   //Adding a state var where I will store the the todo list and I have initialized it with an empty array to store multiple todos!!!
   const [todoList, setTodoList] = useState([]);
+
   const [id, setid] = useState("");
   const [selectedPriority, setSelectedPriority] = useState("");
+  const [targetValue, setTargetValue] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+
 
   //The useRef is going to be connected to the to the input field that we created
   //The inputRef is going to give us the value that will be entered in the input field
   const inputRef = useRef();
 
+  
+
   //We need the text that is written in the input field by the user
   const add = () => {
-    const inputText = inputRef.current.value;
+    let inputText = targetValue;
 
     if (inputText === "") {
       return null;
@@ -28,9 +34,12 @@ const Todo = () => {
       priority: selectedPriority,
     };
 
+    console.log(selectedPriority);
+
     //To update the todo list we using the setTodoList
     setTodoList((prev) => [...prev, newTodo]);
-    inputRef.current.value = "";
+
+    inputRef.current.value = "";    
   };
 
   //Creating a delete function
@@ -44,6 +53,10 @@ const Todo = () => {
     setSelectedPriority(event.target.value);
   };
 
+  const queried = todoList.filter((item) =>
+    item.text.toLowerCase().includes(searchValue)
+  );
+
   return (
     <div className="flex justify-evenly">
       {/* -------------------------------First Column---------------------------------- */}
@@ -52,6 +65,8 @@ const Todo = () => {
           className="flex items-center my-7 bg-gray-200 outline-none h-16 w-full pl-6 pr-2 placeholder:text-slate-600 rounded-full"
           type="text"
           placeholder="Add your task"
+          ref={inputRef}
+          onChange={(e) => setTargetValue(e.target.value)}
         />
         <label htmlFor="priority task">
           <h1 className="text-lg font-medium">Priority</h1>
@@ -80,15 +95,33 @@ const Todo = () => {
         <div className="flex items-center mt-7 gap-2">
           <h1 className="text-3xl font-semibold">To-Do List</h1>
         </div>
+        <input
+          className="flex items-center my-7 bg-gray-200 outline-none h-16 w-full pl-6 pr-2 placeholder:text-slate-600 rounded-full"
+          type="text"
+          placeholder="search..."
+          onChange={(e) => searchValue(e.target.value)}
+        />
         <div>
-          {todoList.map((item, index) => {
+          {queried.map((item, index) => {
             return (
               <div className="flex items-center my-3 gap-2" key={item.id}>
                 <div className="flex flex-1 items-center cursor-pointer">
                   <img className="w-7" src={tick} onClick={() => {}} />
                   <p className="text-slate-700 ml-4 text-[17px]">{item.text}</p>
                 </div>
-
+                <div
+                  style={{
+                    width: "5px",
+                    height: "5px",
+                    borderRadius: "50%",
+                    background:
+                      item.priority === "high"
+                        ? "red"
+                        : item.priority === "medium"
+                        ? "orange"
+                        : "green",
+                  }}
+                ></div>
                 <img
                   onClick={() => {
                     deleteTodo(item.id);

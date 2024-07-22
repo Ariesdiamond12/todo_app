@@ -8,12 +8,12 @@ import Login from "./Components/Login";
 
 const App = () => {
   return (
-    <div className="bg-slate-950 grig py-4 min-h-screen content-center">
+    <div className="bg-stone-300 grid py-4 min-h-screen content-center">
       <BrowserRouter>
         <Routes>
-          <Route path="/Todo" element={<Todo />} />
           <Route path="/Login" element={<Login />} />
-          <Route path="/Registration" element={<Registration />} />
+          <Route path="/Registration" element={<Registraion />} />
+          <Route path="/Todo" element={<Todo />} />
         </Routes>
       </BrowserRouter>
     </div>

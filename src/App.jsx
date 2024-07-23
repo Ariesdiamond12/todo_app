@@ -11,7 +11,7 @@ const App = () => {
     <div className="bg-stone-300 grid py-4 min-h-screen content-center">
       <BrowserRouter>
         <Routes>
-          <Route path="/Login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="/Registration" element={<Registraion />} />
           <Route path="/Todo" element={<Todo />} />
         </Routes>

@@ -12,7 +12,7 @@ function Registraion() {
   const [password, setPassword] = useState("");
 
   const reg_user = () => {
-    alert(name + " " + surname + " " + email + " " + password);
+    //alert(name + " " + surname + " " + email + " " + password);
     localStorage.setItem(
       "User",
       JSON.stringify({
@@ -23,7 +23,7 @@ function Registraion() {
       })
     );
 
-    navigate("/Login");
+    navigate("/");
   };
 
   return (
@@ -79,7 +79,7 @@ function Registraion() {
           </button>
           <div>
             <p>
-              Already have an account?<Link to="/Login"> Login </Link>
+              Already have an account?<Link to="/"> Login </Link>
             </p>
           </div>
         </form>

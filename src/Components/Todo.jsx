@@ -17,6 +17,8 @@ const Todo = () => {
   //The inputRef is going to give us the value that will be entered in the input field
   const inputRef = useRef();
 
+  useEffect(() => { setTodoList(  JSON.parse( localStorage.getItem("todos") )  ) }, [])
+
   
 
   //We need the text that is written in the input field by the user
@@ -39,7 +41,10 @@ const Todo = () => {
     //To update the todo list we using the setTodoList
     setTodoList((prev) => [...prev, newTodo]);
 
+    localStorage.setItem("todos", JSON.stringify([...todoList, newTodo]))
+
     inputRef.current.value = "";    
+
   };
 
   //Creating a delete function

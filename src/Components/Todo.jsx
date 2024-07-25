@@ -17,7 +17,7 @@ const Todo = () => {
   //The inputRef is going to give us the value that will be entered in the input field
   const inputRef = useRef();
 
-  useEffect(() => { setTodoList(  JSON.parse( localStorage.getItem("todos") )  ) }, [])
+  useEffect(() => { setTodoList(  JSON.parse( localStorage.getItem("todos") ) || [] ) }, [])
 
   
 
